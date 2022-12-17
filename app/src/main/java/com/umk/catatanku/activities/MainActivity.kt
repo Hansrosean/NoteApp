@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isEmpty
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -74,12 +76,23 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = obtainViewModel(this@MainActivity)
         mainViewModel.getAllNotes().observe(this) { noteList ->
-            if (noteList != null) {
-                adapter.setListNotes(noteList)
+            adapter.setListNotes(noteList)
+            if (noteList.isEmpty()) {
+                binding?.rvNotes?.visibility = View.GONE
+                binding?.tvBlankList?.visibility = View.VISIBLE
+            } else {
+                binding?.rvNotes?.visibility = View.VISIBLE
+                binding?.tvBlankList?.visibility = View.GONE
             }
         }
 
-        val settingViewModel = ViewModelProvider(this, ViewModelFactory(UserPreference.getInstance(dataStore), application, SettingPreferences.getInstance(dataStore))
+        val settingViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(
+                UserPreference.getInstance(dataStore),
+                application,
+                SettingPreferences.getInstance(dataStore)
+            )
         )[SettingViewModel::class.java]
         settingViewModel.getThemeSettings().observe(this) { isDarkModeEnable: Boolean ->
             if (isDarkModeEnable) {
