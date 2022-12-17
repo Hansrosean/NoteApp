@@ -3,7 +3,8 @@
     <string name="homepage_title">CatatanKu</string>
     <string name="login">Login</string>
     <string name="or">Or</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_link"><u>Sign Up</u></string>
+    <string name="sign_up_title">Sign Up</string>
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="email">email</string>
@@ -30,7 +31,7 @@
     <string name="changed">Satu item berhasil diubah</string>
     <string name="deleted">Satu item berhasil dihapus</string>
     <string name="edit">Edit</string>
-    <string name="my_profile">My profile</string>
+    <string name="my_profile">Profile</string>
     <string name="setting">Setting</string>
     <string name="logout">Logout</string>
     <string name="dark_mode">Dark Mode</string>

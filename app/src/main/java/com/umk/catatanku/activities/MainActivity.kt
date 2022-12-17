@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -18,6 +19,7 @@ import com.umk.catatanku.databinding.ActivityMainBinding
 import com.umk.catatanku.preferences.SettingPreferences
 import com.umk.catatanku.preferences.UserPreference
 import com.umk.catatanku.viewmodel.MainViewModel
+import com.umk.catatanku.viewmodel.SettingViewModel
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -77,6 +79,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val settingViewModel = ViewModelProvider(this, ViewModelFactory(UserPreference.getInstance(dataStore), application, SettingPreferences.getInstance(dataStore))
+        )[SettingViewModel::class.java]
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeEnable: Boolean ->
+            if (isDarkModeEnable) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {

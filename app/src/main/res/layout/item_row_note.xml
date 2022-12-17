@@ -33,6 +33,7 @@
                 android:layout_marginBottom="15dp"
                 android:gravity="start"
                 android:text="@string/description"
+                android:maxLines="1"
                 android:textSize="16sp"/>
 
             <TextView
